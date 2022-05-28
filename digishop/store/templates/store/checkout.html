@@ -1,0 +1,64 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+{% load store_tags %}
+<br>
+<br>
+<div class="container">
+    <h1 class="display-4">Checkout</h1>
+    <hr>
+    <div class="mt-3">
+        <div class="row">
+            <div class="col">
+                <div class="p-4">
+                    <img class="img-fluid shadow" src="{{product.thumbnail.url}}" alt="">
+                </div>
+            </div>
+            <div class="col">
+                <div class="col">
+                
+                    <h2 class="display-5">{{product.name}}</h2>
+                    <p>Category: {{product.category}}</p>
+                    <p>Size: {{product.file_size}} MB</p>
+                    <p>Discription: {{product.description}}</p>
+                    <h3>Save. {{product.discount}}%</h3>
+                    <h3><del>Rs. {{product.price}}</del>&nbsp;&nbsp;Rs. {%sale_price product.price product.discount%}</h3>
+                    <form action="/payment/{{product.slug}}" method="POST">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <br>
+                        <input class="btn btn-dark btn-block m-0" type="submit" value="Continue to Checkout">
+                    </form>       
+                   
+                    <!-- <div class=" p-0">
+                        <a href="/checkout/{{product.slug}}" class=""></a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% if show_payment_dialog %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+   window.onload = function() {
+      
+   var option={
+   "key": "rzp_test_sMcBqHO39k7TlA",
+   "name": "Digital Store",
+   "description": "Test Transaction",
+   "image": "https://example.com/your_logo",
+   "order_id": "{{order.id}}", 
+   "callback_url": "http://127.0.0.1:8000/payment/verify",
+   }
+   var rzp1 = new Razorpay(option);
+   rzp1.open();
+   }
+</script>
+
+{% endif %}
+
+{% endblock %}

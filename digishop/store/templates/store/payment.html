@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<br>
+<br>
+<div class="container">
+   <h1>Payment Page</h1>
+   {{user}}
+   {{product}}
+   {{order}}
+</div>
+<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+   window.onload = function() {
+      
+   var option={
+   "key": "rzp_test_sMcBqHO39k7TlA",
+   "name": "Digital Store",
+   "description": "Test Transaction",
+   "image": "https://example.com/your_logo",
+   "order_id": "{{order.id}}", 
+   "callback_url": "http://127.0.0.1:8000/payment/verify",
+   }
+   var rzp1 = new Razorpay(option);
+   rzp1.open();
+   }
+</script> -->
+{% endblock %}
